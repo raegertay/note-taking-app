@@ -9,7 +9,7 @@ import NoteContent from './NoteContent';
 class Note extends Component {
   render() {
     let li_arr = [];
-    this.props.items.forEach((term, item_id) => li_arr.push([item_id, term]));
+    this.props.items.forEach((note, item_id) => li_arr.push([item_id, note]));
     return (
         li_arr.map((pair) => { return (
           <Route
@@ -17,7 +17,7 @@ class Note extends Component {
           render={()=> <NoteContent
             onDeleteClick={() => this.props.onDeleteClick(pair[0])}
             onEditClick={() => this.props.onEditClick(pair[0])}
-            term={pair[1]}/>}
+            note={pair[1]}/>}
           />
         );})
     );

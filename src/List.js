@@ -16,12 +16,12 @@ import {
 class List extends Component {
   render() {
     let li_arr = [];
-    this.props.items.forEach((term, item_id) => li_arr.push([item_id, term]));
+    this.props.items.forEach((note, item_id) => li_arr.push([item_id, note]));
     return (
       <ol>
       {
         li_arr.map((pair) => { return (
-            <li key={pair[0]}><Link to={`/${pair[0]}`}>{pair[1]}</Link></li>
+            <li key={pair[0]}><Link to={`/${pair[0]}`}>{pair[1][0]}</Link></li>
         );})
       }
       </ol>
