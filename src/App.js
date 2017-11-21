@@ -68,18 +68,30 @@ class App extends Component {
     return (
       <Router>
         <div>
+          <h1 className='center'>Note Taking App</h1>
           <form className='App' onSubmit={this.onSubmit}>
             <input value={this.state.title} onChange={this.onTitleChange} placeholder='Title'/>
+            <br /><br />
             <input value={this.state.description} onChange={this.onDescriptionChange} placeholder='Description' />
-            <button>Submit</button>
+            <br /><br />
+            <button>Create Note</button>
           </form>
-          <List items={this.state.items} />
+          <br />
           <hr />
-          <Note
-          items={this.state.items}
-          onDeleteClick={(item_id) => this.handleDeleteClick(item_id)}
-          onEditClick={(item_id) => this.handleEditClick(item_id)}
-          />
+          <div className='flex-container'>
+            <div className='list'>
+              <p className='center'><u>All Notes</u></p>
+              <List items={this.state.items} />
+            </div>
+            <div className='note center'>
+              <p> </p>
+              <Note
+              items={this.state.items}
+              onDeleteClick={(item_id) => this.handleDeleteClick(item_id)}
+              onEditClick={(item_id) => this.handleEditClick(item_id)}
+              />
+            </div>
+          </div>
         </div>
       </Router>
     );
