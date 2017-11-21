@@ -59,6 +59,7 @@ class App extends Component {
         onDeleteClick={(item_id) => this.handleDeleteClick(item_id)}
         onEditClick={(item_id) => this.handleEditClick(item_id)}
         />
+        <hr />
       </div>
     );
   }
