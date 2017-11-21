@@ -28,18 +28,21 @@ class App extends Component {
     });
   }
 
-  // onClick = (event) => {
-  //   const item_id = parseInt(event.target.id);
-  //   const new_items = new Map(this.state.items);
-  //   new_items.delete(item_id);
-  //   this.setState({items: new_items});
-  // }
+  handleDeleteClick = (id) => {
+    const item_id = parseInt(id);
+    const new_items = new Map(this.state.items);
+    new_items.delete(item_id);
+    this.setState({items: new_items});
+  }
 
-  handleClick = (id) => {
-      const item_id = parseInt(id);
-      const new_items = new Map(this.state.items);
-      new_items.delete(item_id);
-      this.setState({items: new_items});
+  handleEditClick = (id) => {
+    const item_id = parseInt(id);
+    const new_items = new Map(this.state.items);
+    new_items.set(item_id, this.state.term);
+    this.setState({
+      term: '',
+      items: new_items,
+    });
   }
 
   render() {
@@ -51,7 +54,11 @@ class App extends Component {
           <input value={this.state.term} onChange={this.onChange} />
           <button>Submit</button>
         </form>
-        <List items={this.state.items} onClick={(item_id) => this.handleClick(item_id)}/>
+        <List
+        items={this.state.items}
+        onDeleteClick={(item_id) => this.handleDeleteClick(item_id)}
+        onEditClick={(item_id) => this.handleEditClick(item_id)}
+        />
       </div>
     );
   }

@@ -18,7 +18,8 @@ class List extends Component {
         li_arr.map((pair) => { return (
           <div key={pair[0]}>
             <li>{pair[1]}</li>
-            <button id={pair[0]} onClick={() => this.props.onClick(pair[0])}>Delete</button>
+            <button onClick={() => this.props.onDeleteClick(pair[0])}>Delete</button>
+            <button onClick={() => this.props.onEditClick(pair[0])}>Edit</button>
           </div>
         );})
       }
