@@ -28,11 +28,18 @@ class App extends Component {
     });
   }
 
-  onClick = (event) => {
-    const item_id = parseInt(event.target.id);
-    const new_items = new Map(this.state.items);
-    new_items.delete(item_id);
-    this.setState({items: new_items});
+  // onClick = (event) => {
+  //   const item_id = parseInt(event.target.id);
+  //   const new_items = new Map(this.state.items);
+  //   new_items.delete(item_id);
+  //   this.setState({items: new_items});
+  // }
+
+  handleClick = (id) => {
+      const item_id = parseInt(id);
+      const new_items = new Map(this.state.items);
+      new_items.delete(item_id);
+      this.setState({items: new_items});
   }
 
   render() {
@@ -44,10 +51,7 @@ class App extends Component {
           <input value={this.state.term} onChange={this.onChange} />
           <button>Submit</button>
         </form>
-        <List items={this.state.items} />
-        {
-          li_arr.map((pair, idx) => <button key={pair[0]} id={pair[0]} onClick={this.onClick}>Delete #{idx+1}</button>)
-        }
+        <List items={this.state.items} onClick={(item_id) => this.handleClick(item_id)}/>
       </div>
     );
   }

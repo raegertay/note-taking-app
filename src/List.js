@@ -15,7 +15,12 @@ class List extends Component {
     return (
       <ol>
       {
-        li_arr.map((pair) => <li key={pair[0]}>{pair[1]}</li>)
+        li_arr.map((pair) => { return (
+          <div key={pair[0]}>
+            <li>{pair[1]}</li>
+            <button id={pair[0]} onClick={() => this.props.onClick(pair[0])}>Delete</button>
+          </div>
+        );})
       }
       </ol>
     )
