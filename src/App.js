@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom';
 import './App.css';
 import List from './List';
+import Note from './Note';
 
 class App extends Component {
   constructor(props) {
@@ -49,18 +55,21 @@ class App extends Component {
     let li_arr = [];
     this.state.items.forEach((term, item_id) => li_arr.push([item_id, term]));
     return (
-      <div>
-        <form className='App' onSubmit={this.onSubmit}>
-          <input value={this.state.term} onChange={this.onChange} />
-          <button>Submit</button>
-        </form>
-        <List
-        items={this.state.items}
-        onDeleteClick={(item_id) => this.handleDeleteClick(item_id)}
-        onEditClick={(item_id) => this.handleEditClick(item_id)}
-        />
-        <hr />
-      </div>
+      <Router>
+        <div>
+          <form className='App' onSubmit={this.onSubmit}>
+            <input value={this.state.term} onChange={this.onChange} />
+            <button>Submit</button>
+          </form>
+          <List items={this.state.items} />
+          <hr />
+          <Note
+          items={this.state.items}
+          onDeleteClick={(item_id) => this.handleDeleteClick(item_id)}
+          onEditClick={(item_id) => this.handleEditClick(item_id)}
+          />
+        </div>
+      </Router>
     );
   }
 }

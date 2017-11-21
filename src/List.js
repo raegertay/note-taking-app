@@ -1,4 +1,9 @@
 import React, { Component } from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom';
 
 // const List = (props) => (
 //   <ol>
@@ -16,11 +21,7 @@ class List extends Component {
       <ol>
       {
         li_arr.map((pair) => { return (
-          <div key={pair[0]}>
-            <li>{pair[1]}</li>
-            <button onClick={() => this.props.onDeleteClick(pair[0])}>Delete</button>
-            <button onClick={() => this.props.onEditClick(pair[0])}>Edit</button>
-          </div>
+            <li key={pair[0]}><Link to={`/${pair[0]}`}>{pair[1]}</Link></li>
         );})
       }
       </ol>
