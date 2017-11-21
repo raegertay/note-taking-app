@@ -31,7 +31,9 @@ class App extends Component {
   onSubmit = (event) => {
     event.preventDefault();
     const new_items = new Map(this.state.items);
-    new_items.set(this.state.item_id, [this.state.title, this.state.description]);
+    const new_title = this.state.title === '' ? '<No title>' : this.state.title;
+    const new_description = this.state.description === '' ? '<No description>' : this.state.description;
+    new_items.set(this.state.item_id, [new_title, new_description]);
     this.setState({
       title: '',
       description: '',
