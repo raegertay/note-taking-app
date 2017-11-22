@@ -24,4 +24,6 @@ class Note extends Component {
   }
 }
 
+// props => {...props}
+
 export default Note;

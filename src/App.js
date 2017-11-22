@@ -7,6 +7,7 @@ import {
 import './App.css';
 import List from './List';
 import Note from './Note';
+// lodash library
 
 class App extends Component {
   constructor(props) {
