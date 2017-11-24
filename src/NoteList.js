@@ -8,8 +8,8 @@ import {
 const NoteList = (props) => (
     <ol>
     {
-      props.notes.map((pair) => { return (
-          <li key={pair[0]}><Link to={`/${pair[0]}`}>{pair[1][0]}</Link></li>
+      props.notes.map((note) => { return (
+          <li key={note['id']}><Link to={`/${note['id']}`}>{note['title']}</Link></li>
       );})
     }
     </ol>

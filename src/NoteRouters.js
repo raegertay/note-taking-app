@@ -7,13 +7,14 @@ import {
 import Note from './Note';
 
 const NoteRouters = (props) => (
-    props.notes.map((pair) => { return (
+    props.notes.map((note) => { return (
       <Route
-      path={`/${pair[0]}`}
+      path={`/${note['id']}`}
+      key={note['id']}
       render={()=> <Note
-        onDeleteClick={() => props.onDeleteClick(pair[0])}
-        onEditClick={() => props.onEditClick(pair[0])}
-        note={pair[1]}/>}
+        onDeleteClick={() => props.onDeleteClick(note['id'])}
+        onEditClick={() => props.onEditClick(note['id'])}
+        note={note}/>}
       />
     );})
 )
