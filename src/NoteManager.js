@@ -76,44 +76,46 @@ class NoteManager extends Component {
   render() {
     const notes = this.mapToArray(this.state.notes);
     return (
-      <Router>
-        <div>
-          <h1 className='center'>Note Taking App</h1>
+      <div>
+        <Link to='/'>Logout</Link>
+        <Router>
+          <div>
+            <h1 className='center'>Welcome {this.props.name}!</h1>
 
-          {/* Form */}
-          <div className='center mb'>
-            <form className='form mb' onSubmit={this.onSubmit}>
-              <input value={this.state.title} onChange={this.onTitleChange} placeholder='Title'/>
-              <br /><br />
-              <textarea value={this.state.body} onChange={this.onDescriptionChange} placeholder='Body' />
-              <br /><br />
-              <button>Create Note</button>
-            </form>
-          </div>
-
-          <hr />
-
-          {/* Note List */}
-          <div className='flex-container'>
-            <div className='note-list'>
-              <p className='center'><u>All Notes</u></p>
-              <NoteList notes={notes} />
+            {/* Form */}
+            <div className='center mb'>
+              <form className='form mb' onSubmit={this.onSubmit}>
+                <input value={this.state.title} onChange={this.onTitleChange} placeholder='Title'/>
+                <br /><br />
+                <textarea value={this.state.body} onChange={this.onDescriptionChange} placeholder='Body' />
+                <br /><br />
+                <button>Create Note</button>
+              </form>
             </div>
 
-            {/* Note */}
-            <div className='note center'>
-              <Switch>
-                <Route exact path="/" component={Home}/>
-                <NoteRouters
-                notes={notes}
-                onDeleteClick={(note_id) => this.handleDeleteClick(note_id)}
-                onEditClick={(note_id) => this.handleEditClick(note_id)}
-                />
-              </Switch>
+            <hr />
+
+            {/* Note List */}
+            <div className='flex-container'>
+              <div className='note-list'>
+                <p className='center'><u>All Notes</u></p>
+                <NoteList notes={notes} />
+              </div>
+
+              {/* Note */}
+              <div className='note center'>
+                <Switch>
+                  <NoteRouters
+                  notes={notes}
+                  onDeleteClick={(note_id) => this.handleDeleteClick(note_id)}
+                  onEditClick={(note_id) => this.handleEditClick(note_id)}
+                  />
+                </Switch>
+              </div>
             </div>
           </div>
-        </div>
-      </Router>
+        </Router>
+      </div>
     );
   }
 }
