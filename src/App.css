@@ -1,9 +1,9 @@
-.App {
+.center {
   text-align: center;
 }
 
-.center {
-  text-align: center;
+.form {
+  margin-bottom: 20px;
 }
 
 .flex-container {
