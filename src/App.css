@@ -11,7 +11,7 @@
   justify-content: space-around;
 }
 
-.list {
+.note-list {
   flex: 1;
   border-right: 1px solid;
   height: 500px;

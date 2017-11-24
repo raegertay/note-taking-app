@@ -5,8 +5,8 @@ import {
   Link
 } from 'react-router-dom';
 import './App.css';
-import List from './List';
-import Note from './Note';
+import NoteList from './NoteList';
+import NoteRouters from './NoteRouters';
 // lodash library
 
 class App extends Component {
@@ -80,13 +80,13 @@ class App extends Component {
           <br />
           <hr />
           <div className='flex-container'>
-            <div className='list'>
+            <div className='note-list'>
               <p className='center'><u>All Notes</u></p>
-              <List items={this.state.items} />
+              <NoteList items={this.state.items} />
             </div>
             <div className='note center'>
               <p> </p>
-              <Note
+              <NoteRouters
               items={this.state.items}
               onDeleteClick={(item_id) => this.handleDeleteClick(item_id)}
               onEditClick={(item_id) => this.handleEditClick(item_id)}
