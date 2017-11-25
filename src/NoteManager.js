@@ -71,23 +71,23 @@ class NoteManager extends Component {
         notes: data
       });
     })
-    // const note_id = parseInt(id);
-    // const new_items = new Map(this.state.notes);
-    // new_items.delete(note_id);
-    // this.setState({notes: new_items});
   }
 
   handleEditClick = (id) => {
-    const note_id = parseInt(id);
-    const new_items = new Map(this.state.notes);
-    const new_title = this.state.title === '' ? this.state.notes.get(id)[0] : this.state.title;
-    const new_description = this.state.body === '' ? this.state.notes.get(id)[1] : this.state.body;
-    new_items.set(note_id, [new_title, new_description]);
-    this.setState({
-      title: '',
-      body: '',
-      notes: new_items,
-    });
+    const json_note = JSON.stringify({title: this.state.title, body: this.state.body})
+    const headers = {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    }
+    const init = { method: "PUT", headers: headers, body: json_note }
+    fetch(`http://localhost:3000/api/project/${this.props.name}/note/${id}`, init)
+    .then(res => res.json())
+    .then((data) => {
+      this.setState({
+        title: '',
+        body: '',
+        notes: data});
+    })
   }
 
   // {1: {title: 'myTitle', body: 'myBody'}} -> [{id: 1, title: 'myTitle', body: 'myBody'}]
