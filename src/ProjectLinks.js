@@ -15,6 +15,8 @@ const ProjectLinks = (props) => (
             onClick={() => props.onProjectClick(project['name'])}>
             {project['name']}
           </Link>
+          <button onClick={() => props.onDeleteClick(project['name'])}>Delete
+          </button>
         </li>
       )
     }

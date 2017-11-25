@@ -41,6 +41,17 @@ class App extends Component {
     this.setState({ name: name});
   }
 
+  handleDeleteClick = (name) => {
+    const init = { method: "DELETE" }
+    fetch(`http://localhost:3000/api/project/${name}/`, init)
+    .then(res => res.json())
+    .then((data) => {
+      this.setState({
+        projects: data
+      });
+    })
+  }
+
   render() {
     return (
       <Router>
@@ -52,7 +63,9 @@ class App extends Component {
                 onNameChange={this.handleNameChange} />}/>
               <Route
                 path={`/${this.state.name}`}
-                render={() => <NoteManager name={this.state.name}/>}
+                render={() => <NoteManager
+                  name={this.state.name}
+                  onDeleteClick={(name) => this.handleDeleteClick(name)}/>}
                 />
             </Switch>
           </div>
@@ -63,6 +76,7 @@ class App extends Component {
             <ProjectLinks
               projects={this.state.projects}
               onProjectClick={(name) => this.handleProjectClick(name)}
+              onDeleteClick={(name) => this.handleDeleteClick(name)}
             />
           </div>
         </div>

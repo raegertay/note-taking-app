@@ -90,21 +90,16 @@ class NoteManager extends Component {
     })
   }
 
-  // {1: {title: 'myTitle', body: 'myBody'}} -> [{id: 1, title: 'myTitle', body: 'myBody'}]
-  // mapToArray = (mapObj) => {
-  //   let arrObj =[];
-  //   mapObj.forEach((note_obj, note_id) =>
-  //       arrObj.push({id: note_id, title: note_obj['title'], body: note_obj['body']})
-  //   );
-  //   return arrObj;
-  // }
-
   render() {
     // const notes = this.mapToArray(this.state.notes);
     const notes = this.state.notes;
     return (
       <div>
         <Link to='/'>Back</Link>
+        <br />
+        <Link
+          to='/'
+          onClick={() => this.props.onDeleteClick(this.props.name)}>Delete project</Link>
         <Router>
           <div>
             <h1 className='center'>{this.props.name}</h1>
