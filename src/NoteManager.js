@@ -16,10 +16,42 @@ class NoteManager extends Component {
     this.state = {
       title: '',
       body: '',
-      notes: new Map(),
+      notes: [],
       note_id: 1,
     }
     // this.onChange = this.onChange.bind(this);
+  }
+
+  componentDidMount = () => {
+    fetch(`http://localhost:3000/api/user/${this.props.name}`)
+    .then(res => res.json())
+    .then(
+      (data) => {
+        // console.log(data)
+        this.setState({
+          title: '',
+          body: '',
+          notes: data});
+      }
+    )
+  }
+
+  onSubmit = (event) => {
+    event.preventDefault();
+    const json_note = JSON.stringify({title: this.state.title, body: this.state.body})
+    const headers = {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    }
+    const init = { method: "POST", headers: headers, body: json_note }
+    fetch(`http://localhost:3000/api/user/${this.props.name}`, init)
+    .then(res => res.json())
+    .then((data) => {
+      this.setState({
+        title: '',
+        body: '',
+        notes: data});
+    })
   }
 
   onTitleChange = (event) => {
@@ -28,20 +60,6 @@ class NoteManager extends Component {
 
   onDescriptionChange = (event) => {
     this.setState({body: event.target.value});
-  }
-
-  onSubmit = (event) => {
-    event.preventDefault();
-    const new_items = new Map(this.state.notes);
-    const new_title = this.state.title === '' ? '<No title>' : this.state.title;
-    const new_description = this.state.body === '' ? '<No body>' : this.state.body;
-    new_items.set(this.state.note_id, {title: new_title, body: new_description});
-    this.setState({
-      title: '',
-      body: '',
-      notes: new_items,
-      note_id: (this.state.note_id + 1),
-    });
   }
 
   handleDeleteClick = (id) => {
@@ -65,16 +83,17 @@ class NoteManager extends Component {
   }
 
   // {1: {title: 'myTitle', body: 'myBody'}} -> [{id: 1, title: 'myTitle', body: 'myBody'}]
-  mapToArray = (mapObj) => {
-    let arrObj =[];
-    mapObj.forEach((note_obj, note_id) =>
-        arrObj.push({id: note_id, title: note_obj['title'], body: note_obj['body']})
-    );
-    return arrObj;
-  }
+  // mapToArray = (mapObj) => {
+  //   let arrObj =[];
+  //   mapObj.forEach((note_obj, note_id) =>
+  //       arrObj.push({id: note_id, title: note_obj['title'], body: note_obj['body']})
+  //   );
+  //   return arrObj;
+  // }
 
   render() {
-    const notes = this.mapToArray(this.state.notes);
+    // const notes = this.mapToArray(this.state.notes);
+    const notes = this.state.notes;
     return (
       <div>
         <Link to='/'>Logout</Link>
