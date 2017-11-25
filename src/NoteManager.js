@@ -104,7 +104,7 @@ class NoteManager extends Component {
     const notes = this.state.notes;
     return (
       <div>
-        <Link to='/'>Logout</Link>
+        <Link to='/'>Back</Link>
         <Router>
           <div>
             <h1 className='center'>{this.props.name}</h1>

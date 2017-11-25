@@ -8,6 +8,7 @@ import {
 import './App.css';
 import NoteManager from './NoteManager';
 import Home from './Home';
+import ProjectLinks from './ProjectLinks';
 // lodash library
 
 class App extends Component {
@@ -15,26 +16,55 @@ class App extends Component {
     super(props);
     this.state = {
       name: '',
+      projects: [],
     }
+  }
+
+  componentDidMount = () => {
+    fetch(`http://localhost:3000/api/projects`)
+    .then(res => res.json())
+    .then(
+      (data) => {
+        // console.log(data)
+        this.setState({
+          projects: data,
+        });
+      }
+    )
   }
 
   handleNameChange = (event) => {
     this.setState({ name: event.target.value });
   }
 
+  handleProjectClick = (name) => {
+    this.setState({ name: name});
+  }
+
   render() {
     return (
       <Router>
-        <div className='center'>
-          <Switch>
-            <Route exact path="/" render={() => <Home
-              name={this.state.name}
-              onNameChange={this.handleNameChange} />}/>
-            <Route
-              path={`/${this.state.name}`}
-              render={() => <NoteManager name={this.state.name}/>}
-              />
-          </Switch>
+        <div>
+          <div className='center'>
+            <Switch>
+              <Route exact path="/" render={() => <Home
+                name={this.state.name}
+                onNameChange={this.handleNameChange} />}/>
+              <Route
+                path={`/${this.state.name}`}
+                render={() => <NoteManager name={this.state.name}/>}
+                />
+            </Switch>
+          </div>
+
+          {/* Project links */}
+          <div>
+            <h4>My Projects</h4>
+            <ProjectLinks
+              projects={this.state.projects}
+              onProjectClick={(name) => this.handleProjectClick(name)}
+            />
+          </div>
         </div>
       </Router>
     );
