@@ -23,7 +23,7 @@ class NoteManager extends Component {
   }
 
   componentDidMount = () => {
-    fetch(`http://localhost:3000/api/user/${this.props.name}`)
+    fetch(`http://localhost:3000/api/project/${this.props.name}`)
     .then(res => res.json())
     .then(
       (data) => {
@@ -44,7 +44,7 @@ class NoteManager extends Component {
       "Content-Type": "application/json"
     }
     const init = { method: "POST", headers: headers, body: json_note }
-    fetch(`http://localhost:3000/api/user/${this.props.name}`, init)
+    fetch(`http://localhost:3000/api/project/${this.props.name}`, init)
     .then(res => res.json())
     .then((data) => {
       this.setState({
@@ -63,10 +63,18 @@ class NoteManager extends Component {
   }
 
   handleDeleteClick = (id) => {
-    const note_id = parseInt(id);
-    const new_items = new Map(this.state.notes);
-    new_items.delete(note_id);
-    this.setState({notes: new_items});
+    const init = { method: "DELETE" }
+    fetch(`http://localhost:3000/api/project/${this.props.name}/note/${id}`, init)
+    .then(res => res.json())
+    .then((data) => {
+      this.setState({
+        notes: data
+      });
+    })
+    // const note_id = parseInt(id);
+    // const new_items = new Map(this.state.notes);
+    // new_items.delete(note_id);
+    // this.setState({notes: new_items});
   }
 
   handleEditClick = (id) => {
@@ -99,7 +107,7 @@ class NoteManager extends Component {
         <Link to='/'>Logout</Link>
         <Router>
           <div>
-            <h1 className='center'>Welcome {this.props.name}!</h1>
+            <h1 className='center'>{this.props.name}</h1>
 
             {/* Form */}
             <div className='center mb'>

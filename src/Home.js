@@ -9,13 +9,13 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <h1>Hello fellow note taker!</h1>
-        <p>Please tell me your name:</p>
+        <h1>Note Taking App</h1>
+        <p>Enter a new or existing project name:</p>
         <input
           value={this.props.name}
           onChange={this.props.onNameChange} />
         <br /><br />
-        <Link to={`/${this.props.name}`}>Enter the App</Link>
+        <Link to={`/${this.props.name}`}>Enter</Link>
       </div>
     )
   }
