@@ -23,6 +23,7 @@ class NoteManager extends Component {
   }
 
   componentDidMount = () => {
+    console.log('NoteManager mounted')
     fetch(`http://localhost:3000/api/project/${this.props.name}`)
     .then(res => res.json())
     .then(
@@ -95,7 +96,7 @@ class NoteManager extends Component {
     const notes = this.state.notes;
     return (
       <div>
-        <Link to='/'>Back</Link>
+        <Link to='/' onClick={this.props.onBackClick}>Back</Link>
         <br />
         <Link
           to='/'

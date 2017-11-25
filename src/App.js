@@ -8,7 +8,6 @@ import {
 import './App.css';
 import NoteManager from './NoteManager';
 import Home from './Home';
-import ProjectLinks from './ProjectLinks';
 // lodash library
 
 class App extends Component {
@@ -21,6 +20,11 @@ class App extends Component {
   }
 
   componentDidMount = () => {
+    console.log('App mounted')
+    this.getProjects();
+  }
+
+  getProjects = () => {
     fetch(`http://localhost:3000/api/projects`)
     .then(res => res.json())
     .then(
@@ -56,28 +60,23 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <div className='center'>
+          <div>
             <Switch>
               <Route exact path="/" render={() => <Home
                 name={this.state.name}
-                onNameChange={this.handleNameChange} />}/>
+                projects={this.state.projects}
+                onNameChange={this.handleNameChange}
+                onProjectClick={(name) => this.handleProjectClick(name)}
+                onDeleteClick={(name) => this.handleDeleteClick(name)}
+               />}/>
               <Route
                 path={`/${this.state.name}`}
                 render={() => <NoteManager
                   name={this.state.name}
-                  onDeleteClick={(name) => this.handleDeleteClick(name)}/>}
+                  onDeleteClick={(name) => this.handleDeleteClick(name)}
+                onBackClick={() => this.getProjects()}/>}
                 />
             </Switch>
-          </div>
-
-          {/* Project links */}
-          <div>
-            <h4>My Projects</h4>
-            <ProjectLinks
-              projects={this.state.projects}
-              onProjectClick={(name) => this.handleProjectClick(name)}
-              onDeleteClick={(name) => this.handleDeleteClick(name)}
-            />
           </div>
         </div>
       </Router>
