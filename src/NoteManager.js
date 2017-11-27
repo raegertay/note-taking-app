@@ -24,7 +24,9 @@ class NoteManager extends Component {
 
   componentDidMount = () => {
     console.log('NoteManager mounted')
-    fetch(`http://localhost:3000/api/project/${this.props.name}`)
+    console.log(this.props.name)
+    const name =  window.location.pathname.split('/')[1]
+    fetch(`http://localhost:3000/api/project/${name}`)
     .then(res => res.json())
     .then(
       (data) => {
@@ -94,6 +96,9 @@ class NoteManager extends Component {
   render() {
     // const notes = this.mapToArray(this.state.notes);
     const notes = this.state.notes;
+    // if(this.props.name === '') {
+    //   return (<div>Loading...</div>)
+    // }
     return (
       <div>
         <Link to='/' onClick={this.props.onBackClick}>Back</Link>

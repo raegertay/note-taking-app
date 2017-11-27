@@ -13,6 +13,7 @@ import Home from './Home';
 class App extends Component {
   constructor(props) {
     super(props);
+    console.log('App constructed')
     this.state = {
       name: '',
       projects: [],
@@ -22,6 +23,8 @@ class App extends Component {
   componentDidMount = () => {
     console.log('App mounted')
     this.getProjects();
+    // console.log('Name:' + this.state.name)
+    // console.log('Projects:' + this.state.projects)
   }
 
   getProjects = () => {
@@ -32,7 +35,7 @@ class App extends Component {
         // console.log(data)
         this.setState({
           projects: data,
-        });
+        }, console.log('App state set'));
       }
     )
   }
