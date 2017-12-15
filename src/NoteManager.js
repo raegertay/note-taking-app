@@ -8,6 +8,7 @@ import {
 import NoteList from './NoteList';
 import NoteRouters from './NoteRouters';
 import Home from './Home';
+import axios from 'axios'
 // lodash library
 
 class NoteManager extends Component {
@@ -39,21 +40,47 @@ class NoteManager extends Component {
     )
   }
 
+  // Fetch (POST)
+  // onSubmit = (event) => {
+  //   event.preventDefault();
+  //   const json_note = JSON.stringify({title: this.state.title, body: this.state.body})
+  //   const headers = {
+  //     "Accept": "application/json",
+  //     "Content-Type": "application/json"
+  //   }
+  //   const init = { method: "POST", headers: headers, body: json_note }
+  //   fetch(`http://localhost:3000/api/project/${this.props.name}`, init)
+  //   .then(res => res.json())
+  //   .then((data) => {
+  //     this.setState({
+  //       title: '',
+  //       body: '',
+  //       notes: data});
+  //   })
+  // }
+
+  // Axios (POST)
   onSubmit = (event) => {
     event.preventDefault();
-    const json_note = JSON.stringify({title: this.state.title, body: this.state.body})
+    const requestData = {
+      title: this.state.title, body: this.state.body
+    }
     const headers = {
       "Accept": "application/json",
       "Content-Type": "application/json"
     }
-    const init = { method: "POST", headers: headers, body: json_note }
-    fetch(`http://localhost:3000/api/project/${this.props.name}`, init)
-    .then(res => res.json())
-    .then((data) => {
+    const axiosConfig = {
+      method: 'post',
+      url: `http://localhost:3000/api/project/${this.props.name}`,
+      headers: headers,
+      data: requestData
+    }
+    axios(axiosConfig)
+    .then((response) => {
       this.setState({
         title: '',
         body: '',
-        notes: data});
+        notes: response.data});
     })
   }
 

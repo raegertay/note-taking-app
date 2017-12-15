@@ -8,6 +8,7 @@ import {
 import './App.css';
 import NoteManager from './NoteManager';
 import Home from './Home';
+import axios from 'axios'
 // lodash library
 
 class App extends Component {
@@ -17,6 +18,10 @@ class App extends Component {
     this.state = {
       name: '',
       projects: [],
+      myAxios: axios.create({
+        baseURL: 'http://localhost:3000/',
+        timeout: 1000
+      })
     }
   }
 
@@ -27,18 +32,55 @@ class App extends Component {
     // console.log('Projects:' + this.state.projects)
   }
 
+  // Fetch
+  // getProjects = () => {
+  //   fetch(`http://localhost:3000/api/projects`)
+  //   .then(res => {
+  //     console.log(res)
+  //     return res.json()
+  //   })
+  //   .then(
+  //     (data) => {
+  //       console.log(data)
+  //       this.setState({
+  //         projects: data,
+  //       }, console.log('App state set'));
+  //     }
+  //   )
+  //   .catch((error) => {
+  //     console.log(error.message)
+  //   })
+  // }
+
+  // Default axios (GET)
   getProjects = () => {
-    fetch(`http://localhost:3000/api/projects`)
-    .then(res => res.json())
-    .then(
-      (data) => {
-        // console.log(data)
-        this.setState({
-          projects: data,
-        }, console.log('App state set'));
-      }
-    )
+    console.log(axios)
+    axios.get('http://localhost:3000/api/projects')
+    .then((response) => {
+      console.log(response)
+      this.setState({
+        projects: response.data,
+      }, console.log('App state set'));
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
   }
+
+  // Instance axios (GET)
+  // getProjects = () => {
+  //   const myAxios = this.state.myAxios
+  //   myAxios.get('/api/projects')
+  //   .then((response) => {
+  //     console.log(response)
+  //     this.setState({
+  //       projects: response.data,
+  //     }, console.log('App state set'));
+  //   })
+  //   .catch((error) => {
+  //     console.log(error.message);
+  //   });
+  // }
 
   handleNameChange = (event) => {
     this.setState({ name: event.target.value });
@@ -48,15 +90,33 @@ class App extends Component {
     this.setState({ name: name});
   }
 
+  // Fetch (DELETE)
+  // handleDeleteClick = (name) => {
+  //   const init = { method: "DELETE" }
+  //   fetch(`http://localhost:3000/api/project/${name}/`, init)
+  //   .then(res => res.json())
+  //   .then((data) => {
+  //     this.setState({
+  //       projects: data
+  //     });
+  //   })
+  // }
+
+  // Axios (DELETE)
   handleDeleteClick = (name) => {
-    const init = { method: "DELETE" }
-    fetch(`http://localhost:3000/api/project/${name}/`, init)
-    .then(res => res.json())
-    .then((data) => {
+    const axiosConfig = {
+      method: "delete",
+      url: `http://localhost:3000/api/project/${name}/`
+    }
+    axios(axiosConfig)
+    .then((response) => {
       this.setState({
-        projects: data
+        projects: response.data
       });
     })
+    .catch((error) => {
+      console.log(error.message);
+    });
   }
 
   render() {
@@ -71,20 +131,20 @@ class App extends Component {
                 onNameChange={this.handleNameChange}
                 onProjectClick={(name) => this.handleProjectClick(name)}
                 onDeleteClick={(name) => this.handleDeleteClick(name)}
-               />}/>
+              />}/>
               <Route
                 path={`/${this.state.name}`}
                 render={() => <NoteManager
                   name={this.state.name}
                   onDeleteClick={(name) => this.handleDeleteClick(name)}
-                onBackClick={() => this.getProjects()}/>}
+                  onBackClick={() => this.getProjects()}/>}
                 />
-            </Switch>
+              </Switch>
+            </div>
           </div>
-        </div>
-      </Router>
-    );
+        </Router>
+      );
+    }
   }
-}
 
-export default App;
+  export default App;
